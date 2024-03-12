@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function App() {
   return (
@@ -10,43 +10,64 @@ export default function App() {
           placeholder="Enter a new todo item..."
           type="text"
         />
-        <Button className="hover:opacity-80 active:opacity-100" size="icon" variant="subdued">
+        <Button
+          className="hover:opacity-80 active:opacity-100"
+          size="icon"
+          variant="subdued"
+        >
           <PlusIcon className="h-4 w-4" />
           <span className="sr-only">Add</span>
         </Button>
       </div>
       <div className="grid">
         <div className="flex items-center">
-          <label className="flex items-center cursor-pointer p-2 rounded-lg" htmlFor="groceries">
+          <label
+            className="flex items-center cursor-pointer p-2 rounded-lg"
+            htmlFor="groceries"
+          >
             <input
               checked
               className="form-checkbox h-4 w-4 text-gray-600 dark:text-gray-400"
               id="groceries"
               type="checkbox"
             />
-            <span className="line-through font-medium pl-2">Buy groceries for the week</span>
+            <span className="line-through font-medium pl-2">
+              Buy groceries for the week
+            </span>
           </label>
         </div>
         <div className="flex items-center gap-4">
-          <label className="flex items-center cursor-pointer p-2 rounded-lg" htmlFor="callMom">
-            <input className="form-checkbox h-4 w-4 text-gray-600 dark:text-gray-400" id="callMom" type="checkbox" />
+          <label
+            className="flex items-center cursor-pointer p-2 rounded-lg"
+            htmlFor="callMom"
+          >
+            <input
+              className="form-checkbox h-4 w-4 text-gray-600 dark:text-gray-400"
+              id="callMom"
+              type="checkbox"
+            />
             <span className="font-medium pl-2">Call mom</span>
           </label>
         </div>
         <div className="flex items-center gap-4">
-          <label className="flex items-center cursor-pointer p-2 rounded-lg" htmlFor="report">
+          <label
+            className="flex items-center cursor-pointer p-2 rounded-lg"
+            htmlFor="report"
+          >
             <input
               checked
               className="form-checkbox h-4 w-4 text-gray-600 dark:text-gray-400"
               id="report"
               type="checkbox"
             />
-            <span className="line-through font-medium pl-2">Finish the report by EOD</span>
+            <span className="line-through font-medium pl-2">
+              Finish the report by EOD
+            </span>
           </label>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function PlusIcon(props) {
@@ -66,5 +87,5 @@ function PlusIcon(props) {
       <path d="M5 12h14" />
       <path d="M12 5v14" />
     </svg>
-  )
+  );
 }
