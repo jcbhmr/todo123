@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage, useSessionStorage } from "usehooks-ts";
@@ -8,28 +8,6 @@ interface TodoItem {
   id: string;
   title: string;
   completed: boolean;
-}
-
-function useTodos() {
-  const [localTodos, setLocalTodos] = useLocalStorage<TodoItem[]>(
-    "reactodo:localtodos",
-    [],
-  );
-  const [sessionTodos, setSessionTodos] = useSessionStorage<TodoItem[]>(
-    "reactodo:sessiontodos",
-    localTodos,
-  );
-
-  const todos = localTodos
-    .concat(sessionTodos.filter((a) => !localTodos.some((b) => a.id === b.id)))
-    .sort((a, b) => b.timeStamp - a.timeStamp);
-  function setTodos(newTodos: TodoItem[]) {
-    const uncompletedTodos = newTodos.filter((t) => !t.completed);
-    setLocalTodos(uncompletedTodos);
-    setSessionTodos(newTodos);
-  }
-
-  return [todos, setTodos] as const;
 }
 
 function createTodo(title: string): TodoItem {
@@ -148,10 +126,10 @@ function AppCleanTodos(props: {
 }) {
   const { todos, setTodos } = props;
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
     const newTodos = todos.filter((t) => !t.completed);
     setTodos(newTodos);
-  }
+  }, [todos, setTodos])
 
   return (
     <form className="contents" action="#" onSubmit={handleSubmit}>
@@ -168,7 +146,10 @@ function AppCleanTodos(props: {
 }
 
 export default function App() {
-  const [todos, setTodos] = useTodos();
+  const [todos, setTodos] = useLocalStorage<TodoItem[]>(
+    "reactodo:todos",
+    [],
+  );
   return (
     <div className="flex flex-col w-full gap-4 p-4 max-w-md mx-auto">
       <AppTodoList todos={todos} setTodos={setTodos} />
